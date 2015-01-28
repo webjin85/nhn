@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="style/nhn.css" />
+</head>
+<body>
+<div id="wrap">
+	<section class="exchangerate">
+		<h1><!-- 환율 정보 --></h1>
+		<div class="cont_area">
+			
+			<div class="excr_cal">
+				<div>
+					<div class="excr_box">
+						<label for="ecg_ifmt" class="u_hc">환율을 계산할 국가를 선택</label>
+						<select id="ecg_ifmt" class="">
+							<option>미국</option>
+							<option>일본</option>
+							<option>유럽연합</option>
+							<option>중국</option>
+							<option>호주</option>
+							<option>캐나다</option>
+							<option>뉴질랜드</option>
+						</select>
+						<span class=""></span>
+						<span>USD</span>
+					</div>
+					<div>
+						<label for="num" class="">환율을 계산할 금액을 입력</label>
+						<input id="num" type="tel" maxlength="" value="0" class="" style="ime-mode: disabled;" pattern="[0-9.,]+" />
+						<div id="keyinfo"></div>
+					</div>
+				</div>
+				<div>전환</div>
+				<div>
+					<div class="excr_box">
+						<label for="ecg_ifmt" class="u_hc">환율을 변환할 국가를 선택</label>
+						<select class="">
+							<option>미국</option>
+							<option>일본</option>
+							<option>유럽연합</option>
+							<option>중국</option>
+							<option>호주</option>
+							<option>캐나다</option>
+							<option>뉴질랜드</option>
+						</select>
+						<span class=""></span>
+						<span>USD</span>
+					</div>
+					<div>
+						<label for="num" class="">환율을 변환할 금액을 입력</label>
+						<input id="num" type="tel" maxlength="" value="0" class="">
+					</div>
+				</div>
+			</div>
+			
+			<div class="excr_table">
+				<table>
+					<caption>주요국가 환율정보</caption>
+					<colgroup>
+						<col width="140px">
+						<col width="">
+						<col width="">
+						<col width="">
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col">통화명</th>
+							<th scope="col">매매기준율</th>
+							<th scope="col">전일대비</th>
+							<th scope="col">등락률</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="up">
+							<th scope="row"><a href="#link">미국 <span>USD</span></a></th>
+							<td>1,082.30</td>
+							<td class="rate">4.30</td>
+							<td>0.40%</td>
+						</tr>
+					
+						<tr class="up">
+							<th scope="row"><a href="#link">일본 <span>JPY 100</span></a></th>
+							<td>915.50</td>
+							<td class="rate">2.56</td>
+							<td>0.28%</td>
+						</tr>
+					
+						<tr class="up">
+							<th scope="row"><a href="#link">유럽연합 <span>EUR</span></a></th>
+							<td>1,226.46</td>
+							<td class="rate">5.30</td>
+							<td>0.43%</td>
+						</tr>
+					
+						<tr class="down">
+							<th scope="row"><a href="#link">중국 <span>CNY</span></a></th>
+							<td>173.35</td>
+							<td class="rate">0.82</td>
+							<td>0.48%</td>
+						</tr>
+					
+						<tr class="down">
+							<th scope="row"><a href="#link">호주 <span>AUD</span></a></th>
+							<td>862.92</td>
+							<td class="rate">5.91</td>
+							<td>0.69%</td>
+						</tr>
+					
+						<tr class="down">
+							<th scope="row"><a href="#link">캐나다 <span>CAD</span></a></th>
+							<td>870.30</td>
+							<td class="rate">5.34</td>
+							<td>0.62%</td>
+						</tr>
+					
+						<tr class="down">
+							<th scope="row"><a href="#link">뉴질랜드 <span>NZD</span></a></th>
+							<td>804.15</td>
+							<td class="rate">1.90</td>
+							<td>0.24%</td>
+						</tr>
+					</tbody>	
+				</table>
+			</div>
+		</div>
+	</section>
+</div>
+<script src="script/jquery-1.11.2.min.js"></script>
+<script src="script/nhn.js"></script>
+</body>
+</html>
