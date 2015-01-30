@@ -18,9 +18,9 @@ $(window).load(function() {
 /* 
  * 이벤트 그룹 
  */
-
+ 
 // 환율 숫자 입력하는 key 이벤트
-$('input').on('keydown keyup', function(e) {
+$('#num, #num2').on('keydown keyup', function(e) {
 	if(e.type === 'keydown') {
 		if(digit_check(e) === false) {
 			return false;
@@ -63,7 +63,6 @@ String.prototype.uncomma = function(){
     var n = this.replace(/,/g,'');
     return n;
 };
-
 
 /* 
  * 함수 그룹 
