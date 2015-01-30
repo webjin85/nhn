@@ -6,7 +6,8 @@ $(window).load(function() {
 	//ie버전 체크해서 클래스 넘겨줌
 	if(variable.ie8) {
 		$('html').addClass('ie8');
-		$('.flag').append('<img src="" alt="" />');
+		$('.flag').eq(0).append('<img src="images/usd.png" alt="" />');
+		$('.flag').eq(1).append('<img src="images/krw.png" alt="" />');
 	}
 	
 	//처음 페이지 들어왔을 때 계산할 국가를 미국으로 변경
@@ -31,8 +32,10 @@ $('input').on('keydown keyup', function(e) {
 
 //환율 국가선택 이벤트
 $('select').on('change', function(e) {
-	console.log(e);
 	select_country(e);
+	
+	var num = $('#num').val().uncomma()
+	 $('#num2').val(exchange(num));
 });
 
 
@@ -88,6 +91,7 @@ function digit_check(e){
  */
 function digit_change(e) {
 	/*
+	 * target          : 현재 포커싱된 input id를 체크합니다.
 	 * current_val     : 현재 들어가 있는 금액을 확인합니다. 
 	 * current_length  : 현재 들어가 있는 금액의 length를 확인합니다.
 	 * change_number   : 숫자앞에 0이 들어갈 경우 0을 뺀 값을 받습니다.
@@ -95,11 +99,12 @@ function digit_change(e) {
 	 * comma           : 콤마를 추가합니다.
 	 */
 	
-	var current_val = e.currentTarget.value,
+	var target = e.currentTarget.id,
+		current_val = e.currentTarget.value,
 		current_length = current_val.length,
 		change_number = 0,
 		uncomma = current_val.uncomma(),
-		comma = uncomma.comma();
+		comma = String(uncomma).comma();
 	
 	if(current_length > 1) {
 		/*
@@ -109,20 +114,21 @@ function digit_change(e) {
 		 */
 		if(Number(current_val[0]) === 0 && current_val[1] !== '.' ) {
 		 	change_number = current_val.substr(1, current_length);
-		 	e.currentTarget.value = change_number
+		 	comma = change_number;
 		}
 	} else if(current_length === 0) {
 		//input창에 값이 하나도 없으면 0를 보여줍니다.
 		e.currentTarget.value = 0;
 	}
 	
-	//e.currentTarget.value = comma;
+	$('#'+target).parents('.excr_box').siblings('.excr_box').find('input').val(exchange(uncomma));
+	e.currentTarget.value = comma;
 };
 
 /*
  * 환율값을 한글로 단위표시
  * @param e : event값 받아옴
- * 국가별 단위를 한글로 반환한다.
+ * 국가별 단위를 한글로 반환한다. - 아직 작성 못 함.
  */
 function unit(e) {
 	var uncomma = current_val.uncomma(),
@@ -162,3 +168,18 @@ function select_country(e) {
     	$('#'+e.currentTarget.id).siblings('.flag').find('img').attr('src','images/'+unit_eng_lower+'.png');
     }
 }
+
+/*
+ * 변환된 환율 표기
+ * @param value : 변환할 금액을 받아온다
+ * 변환할 환율 금액을 넣으면 해당 국가에 맞춰 변환되어 반환한다.
+ */
+function exchange(value) {
+	var ifmt = $('#ecg_ifmt').find('option:selected').val(),
+		ifmt2 = $('#ecg_ifmt2').find('option:selected').val(),
+		unit = $('#ecg_ifmt2').find('option:selected').attr('data-unit'),
+		number = value * Number(ifmt.uncomma()) / Number(ifmt2.uncomma()),
+		fixed = number.toFixed(2);
+	
+	return fixed.comma();
+};
