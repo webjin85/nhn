@@ -33,7 +33,7 @@ select::-ms-expand { display: none; }
 
 .excr_cal .excr_box { overflow: hidden; position: relative; height: 54px; margin: 0; border: 1px solid #b2b7bd; border-color: #b8bec4 #b2b7bd #acb1b7; border-radius: 3px; }
 .excr_cal .excr_box .slc_box { position: absolute; top: 0; left: 0; z-index: 2; width: 123px; height: 100%; border-right: 1px solid #ccd0d4; background: url(../images/img_slc_box_back.png) repeat-x bottom left; }
-.excr_cal .excr_box .nt_slc { display: block; overflow: hidden; width: 123px; height: 30px; margin: 0; padding: 6px 0 0 31px; border: 0; background: transparent url(https://ssl.pstatic.net/sstatic/keypage/lifesrch/exchange/im/im_list.png) no-repeat 109px -31px; background-size: 16px 125px; font-size: 16px; color: #000; white-space: nowrap; text-overflow: ellipsis; 
+.excr_cal .excr_box .nt_slc { display: block; overflow: hidden; width: 123px; height: 30px; margin: 0; padding: 6px 0 0 36px; border: 0; background: transparent url(https://ssl.pstatic.net/sstatic/keypage/lifesrch/exchange/im/im_list.png) no-repeat 109px -31px; background-size: 16px 125px; font-size: 16px; color: #000; white-space: nowrap; text-overflow: ellipsis; 
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	-ms-appearance: none;
@@ -43,7 +43,7 @@ select::-ms-expand { display: none; }
 
 .excr_cal .num { display: block; position: relative; height: 100%; padding: 0 7px 0 130px; background: #fff; -webkit-box-orient: vertical; }
 .excr_cal .num input { display: block; width: 100%; height: 30px; padding-top: 2px; border: 0; font-size: 19px; font-weight: bold; text-align: right; }
-.excr_cal .num .recite { overflow: hidden; width: 100%; height: 26px; line-height: 16px; text-align: right; }
+.excr_cal .num .recite { display: none; overflow: hidden; width: 100%; height: 26px; line-height: 16px; text-align: right; }
 .excr_cal .num .recite .nb_txt { display: block; overflow: hidden; width: 100%; height: 20px; font-size: 14px; color: #656873; text-align: right; white-space: nowrap; }
 
 /* 환율 국기표기 */
@@ -79,3 +79,4 @@ select::-ms-expand { display: none; }
 
 /* ie8 스타일 */
 .ie8 .exchangerate h1 { font-size: 1em; }
+.ie8 .excr_cal .flag { background: none; }
