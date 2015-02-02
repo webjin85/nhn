@@ -18,7 +18,11 @@ $(window).load(function() {
 /* 
  * 이벤트 그룹 
  */
- 
+$('#num, #num2').on('focusin', function(e) {
+	var val_length = $(this).val().length;
+	setTimeout(function() {	e.currentTarget.selectionStart = val_length;}, 30)
+});
+
 // 환율 숫자 입력하는 key 이벤트
 $('#num, #num2').on('keydown keyup', function(e) {
 	if(e.type === 'keydown') {
@@ -50,9 +54,7 @@ String.prototype.comma = function(){
     var reg = /(^[+-]?\d+)(\d{3})/,
     	n = this;
     
-    while (reg.test(n)) {
-    	n = n.replace(reg, '$1' + ',' + '$2');
-    }
+    while (reg.test(n)) { n = n.replace(reg, '$1' + ',' + '$2'); }
     return n;
 };
 
@@ -78,15 +80,13 @@ function digit_check(e){
 	var code = e.which?e.which:event.keyCode;
 	
 	//숫자, back space, '.'가 아닌 다른 값이 오면 return false 합니다.
-	 if(code < 8 || code > 8 && code < 48 || code > 57 && code < 190 || code > 190 ) {
-	 	return false;
-	 };
+	 if(code < 8 || code > 8 && code < 48 || code > 57 && code < 190 || code > 190 ) { return false; };
 };
 
 /*
  * 환율값에 콤마추가 및 숫자 정렬
  * @param e : event값 받아옴
- * 값을 재설정 하고 ','표기된 숫자갑을 반환한다.
+ * 값을 재설정 하고 ','표기된 숫자값을 타겟의 value값에 뿌려준다.
  */
 function digit_change(e) {
 	/*
@@ -96,15 +96,19 @@ function digit_change(e) {
 	 * change_number   : 숫자앞에 0이 들어갈 경우 0을 뺀 값을 받습니다.
 	 * uncomma         : 콤마를 제거합니다.
 	 * comma           : 콤마를 추가합니다.
+	 * siblings_box    : 형제 엘리먼트를 담습니다.
 	 */
-	
+	console.log(e);
 	var target = e.currentTarget.id,
 		current_val = e.currentTarget.value,
 		current_length = current_val.length,
 		change_number = 0,
 		uncomma = current_val.uncomma(),
-		comma = String(uncomma).comma();
-	
+		comma = String(uncomma).comma(),
+		ex_uncomma = exchange(uncomma),
+		ex_comma = ex_uncomma.comma(),
+		siblings_box = $('#'+target).parents('.excr_box').siblings('.excr_box');
+		
 	if(current_length > 1) {
 		/*
 		 * input창 안에 값이 하나라도 있고,
@@ -120,18 +124,42 @@ function digit_change(e) {
 		e.currentTarget.value = 0;
 	}
 	
-	$('#'+target).parents('.excr_box').siblings('.excr_box').find('input').val(exchange(uncomma));
-	e.currentTarget.value = comma;
+	siblings_box.find('input').val(ex_comma).siblings('.recite').find('.nb_txt').html(unit_han(ex_uncomma) + ' 원');
+	$('#'+target).val(comma).siblings('.recite').find('.nb_txt').html(unit_han(uncomma) + ' 달러');
 };
 
 /*
  * 환율값을 한글로 단위표시
- * @param e : event값 받아옴
+ * @param value : 금액을 받음
  * 국가별 단위를 한글로 반환한다. - 아직 작성 못 함.
  */
-function unit(e) {
-	var uncomma = current_val.uncomma(),
-		comma = uncomma.comma();
+function unit_han(val) {
+	var num = Math.floor(val),
+		num_string = String(num),
+		num2 = '',
+		result = '',
+		array_number = [];
+	
+	if(num == undefined) { return 0 };
+	
+	for(i=0; i<num_string.length; i++) { array_number[i] = num_string.substr(i,1) }
+	
+	array_number.reverse();
+	
+	for(var i = 0; i < num_string.length; i++) {
+		if(i/4 == 1) { 
+			num2 = array_number[i] + '만';
+		} else if(i/8 == 1) { 
+			num2 = array_number[i] + '억';
+		} else if(i/12 == 1) {
+			num2 = array_number[i] + '조';
+		} else {
+			num2 = array_number[i];
+		}
+		result = num2 + result;
+	}
+	
+	return result;
 };
 
 /*
@@ -163,9 +191,7 @@ function select_country(e) {
     unit_eng.html(unit);
     flag.removeClass(flag_class_unit[1]).addClass(unit_eng_lower);
     
-    if(variable.ie8) {
-    	$('#'+e.currentTarget.id).siblings('.flag').find('img').attr('src','images/'+unit_eng_lower+'.png');
-    }
+    if(variable.ie8) { $('#'+e.currentTarget.id).siblings('.flag').find('img').attr('src','images/'+unit_eng_lower+'.png'); }
 }
 
 /*
@@ -173,12 +199,12 @@ function select_country(e) {
  * @param value : 변환할 금액을 받아온다
  * 변환할 환율 금액을 넣으면 해당 국가에 맞춰 변환되어 반환한다.
  */
-function exchange(value) {
+function exchange(val) {
 	var ifmt = $('#ecg_ifmt').find('option:selected').val(),
 		ifmt2 = $('#ecg_ifmt2').find('option:selected').val(),
 		unit = $('#ecg_ifmt2').find('option:selected').attr('data-unit'),
-		number = value * Number(ifmt.uncomma()) / Number(ifmt2.uncomma()),
+		number = val * Number(ifmt.uncomma()) / Number(ifmt2.uncomma()),
 		fixed = number.toFixed(2);
 	
-	return fixed.comma();
+	return fixed;
 };
