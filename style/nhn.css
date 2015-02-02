@@ -37,13 +37,12 @@ select::-ms-expand { display: none; }
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	-ms-appearance: none;
-	-o-appearance: none;
 	appearance: none;
 }
 
 .excr_cal .num { display: block; position: relative; height: 100%; padding: 0 7px 0 130px; background: #fff; -webkit-box-orient: vertical; }
 .excr_cal .num input { display: block; width: 100%; height: 30px; padding-top: 2px; border: 0; font-size: 19px; font-weight: bold; text-align: right; }
-.excr_cal .num .recite { display: none; overflow: hidden; width: 100%; height: 26px; line-height: 16px; text-align: right; }
+.excr_cal .num .recite { overflow: hidden; width: 100%; height: 26px; line-height: 16px; text-align: right; }
 .excr_cal .num .recite .nb_txt { display: block; overflow: hidden; width: 100%; height: 20px; font-size: 14px; color: #656873; text-align: right; white-space: nowrap; }
 
 /* 환율 국기표기 */
